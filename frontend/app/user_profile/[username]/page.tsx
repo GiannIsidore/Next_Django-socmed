@@ -59,7 +59,7 @@ const UserPage = () => {
         </CardContent>
       </Card>
       <div className="col-span-1">
-        {/* Right side content will go here */}
+        {/* Diri ang post sa user hehe */}
       </div>
     </div>
   )
