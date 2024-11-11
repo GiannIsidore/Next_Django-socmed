@@ -31,7 +31,9 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'base.MyUser'
 
-# Application definition
+SIMPLE_JWT = {
+    "USER_ID_FIELD":"username"
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -42,9 +44,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'rest_framework_simplejwt',
     'base'
 ]
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ]
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
