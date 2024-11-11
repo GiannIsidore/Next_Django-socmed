@@ -45,7 +45,7 @@ class CustomTokenObtainPairVeiw(TokenObtainPairView):
             return Response({'success': False})
 
 
-class CustomRefreshView(TokenRefreshView):
+class CustomTokenRefreshView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
         try:
             refresh_token = request.COOKIES.get('refresh_token')
@@ -55,6 +55,7 @@ class CustomRefreshView(TokenRefreshView):
             tokens = response.data
 
             access_token = tokens['access']
+            
             res = Response()
 
             res.data = {"success": True}
@@ -71,8 +72,6 @@ class CustomRefreshView(TokenRefreshView):
             return res
         except:
             return Response({'success': False})
-
-
 
 
 
