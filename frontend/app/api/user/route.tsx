@@ -1,5 +1,6 @@
 import axios from "axios";
 import { SERVER_URL } from "@/app/constants/constanst";
+
 const BASE_URL = SERVER_URL
 
 const api = axios.create({
@@ -41,5 +42,10 @@ const refresh_token = async () => {
 
 export const login = async (username: any, password: any) => {
     const response = await api.post('token/', {username, password})
+    return response.data
+}
+
+export const register = async (userData: any) => {
+    const response = await api.post('register/', userData)
     return response.data
 }
