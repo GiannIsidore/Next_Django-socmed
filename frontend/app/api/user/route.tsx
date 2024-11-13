@@ -19,7 +19,7 @@ api.interceptors.response.use(
                 await refresh_token();
                 return api(original_request)
             } catch (refreshError) {
-                window.location.href = '/login'
+                // window.location.href = '/login'
                 return Promise.reject(refreshError)
             }
 
@@ -47,5 +47,10 @@ export const login = async (username: any, password: any) => {
 
 export const register = async (userData: any) => {
     const response = await api.post('register/', userData)
+    return response.data
+}
+
+export const getAuth = async () => {
+    const response = await api.get('authenticated/')
     return response.data
 }

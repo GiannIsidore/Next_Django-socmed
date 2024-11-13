@@ -31,11 +31,11 @@ export function NavbarComponent() {
             </a>
             <div className="hidden md:block ml-10">
               <div className="flex items-baseline space-x-4">
-                <a href="#" className="text-gray-800 hover:text-gray-600 px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="/face_libro" className="text-gray-800 hover:text-gray-600 px-3 py-2 rounded-md text-sm font-medium">
                   <Home className="inline-block mr-1" size={18} />
                   Home
-                </a>
-                <a href="#" className="text-gray-800 hover:text-gray-600 px-3 py-2 rounded-md text-sm font-medium">
+                </Link>
+                <a href="face_libro/message/" className="text-gray-800 hover:text-gray-600 px-3 py-2 rounded-md text-sm font-medium">
                   <MessageCircle className="inline-block mr-1" size={18} />
                   Messages
                 </a>
@@ -56,7 +56,7 @@ export function NavbarComponent() {
                 <Bell size={18} />
               </Button>
               <Button variant="ghost" size="icon" className="ml-3">
-                <Link href="/user_profile/giann">
+                <Link href="face_libro/user_profile/giann">
                     <User size={18} />
                 </Link>
               </Button>

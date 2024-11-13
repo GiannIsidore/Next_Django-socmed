@@ -1,38 +1,31 @@
+
 'use client'
 
 import React, { useState } from 'react'
-import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from './ui/card'
-import { Input } from './ui/input'
-import { Button } from './ui/button'
-import { Label } from './ui/label'
-import { useRouter } from 'next/navigation'
+import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from '@/components/ui/card'
+
 import Link from 'next/link'
 import { Eye, EyeOff } from 'lucide-react'
-import { login } from '@/app/api/user/route'
+
+import { useAuth } from '@/app/context/useAuth'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 
 const LoginForm = () => {
-  const router = useRouter()
-  const [error, setError] = useState<string | null>(null)
-  const [showPassword, setShowPassword] = useState(false)
 
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState<string | null>(null)
+    const [showPassword, setShowPassword] = useState(false)
+  const {auth_login} = useAuth()
+  const handleLogin = async (username:any , password:any ) => {
+
     setError(null)
 
-    const formData = new FormData(event.currentTarget)
-    const username = formData.get('username') as string
-    const password = formData.get('password') as string
 
-    try {
-      const data = await login(username, password)
-      if (data.success) {
-        router.push(`face_libro/user_profile/${username}`)
-      } else {
-        setError(data.message || 'Login failed. Please try again.')
-      }
-    } catch (err) {
-      setError('An error occurred during login. Please try again.')
-    }
+    auth_login(username, password)
+
   }
 
   return (
@@ -41,11 +34,14 @@ const LoginForm = () => {
         <CardTitle className="text-2xl font-bold text-center">Welcome Back</CardTitle>
         <CardDescription className="text-center">Login to your account</CardDescription>
       </CardHeader>
-      <form onSubmit={handleLogin}>
+      <form>
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="username">Username</Label>
-            <Input type="text" id="username" name="username" required />
+                      <Input type="text" id="username" name="username" required
+                          onChange={(e) => setUsername(e.target.value)}
+                          value={username}
+                      />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
@@ -54,7 +50,9 @@ const LoginForm = () => {
                 type={showPassword ? 'text' : 'password'}
                 id="password"
                 name="password"
-                required
+                              required
+                              onChange={(e) => setPassword(e.target.value)}
+                                value={password}
               />
               <Button
                 type="button"
@@ -71,7 +69,7 @@ const LoginForm = () => {
           {error && <p className="text-red-500 text-sm" role="alert">{error}</p>}
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">
-          <Button type="submit" className="w-full">Login</Button>
+          <Button type="button" onClick={()=> handleLogin(username, password)} className="w-full">Login</Button>
           <div className="text-center text-sm">
             Don't have an account?{' '}
             <Link href="/register" className="text-blue-600 hover:underline">
