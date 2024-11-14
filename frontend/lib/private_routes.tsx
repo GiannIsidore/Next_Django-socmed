@@ -13,7 +13,7 @@ const PrivateRoute = ({children}: {children: ReactNode}) => {
 
     if (!auth) {
         const router = useRouter();
-        router.push('/login');
+        router.push('/');
         return null;
     } else {
         return <>{children}</>

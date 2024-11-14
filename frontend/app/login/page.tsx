@@ -38,10 +38,10 @@ const LoginForm = () => {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="username">Username</Label>
-                      <Input type="text" id="username" name="username" required
-                          onChange={(e) => setUsername(e.target.value)}
-                          value={username}
-                      />
+                <Input type="text" id="username" name="username" required
+                    onChange={(e) => setUsername(e.target.value)}
+                    value={username}
+                />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
@@ -50,9 +50,9 @@ const LoginForm = () => {
                 type={showPassword ? 'text' : 'password'}
                 id="password"
                 name="password"
-                              required
-                              onChange={(e) => setPassword(e.target.value)}
-                                value={password}
+                required
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
               />
               <Button
                 type="button"

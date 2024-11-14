@@ -100,7 +100,30 @@ def get_user_profile_data(request, pk):
             return Response({'error': 'User Does not Exist'})
 
         serializer = MyUserProfileSerializer(user, many=False)
-        return Response(serializer.data)
+        following = False
+        if request.user in user.followers.all():
+            following = True
+
+        return Response({**serializer.data, 'is_our_profile': request.user.username == user.username, 'following': following})
 
     except:
         return Response({'error': 'error getting user data'})
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def toggleFollow(request):
+    try:
+         try:
+            my_user = MyUser.objects.get(username=request.user.username)
+            user_to_follow = MyUser.objects.get(username=request.data['username'])
+         except MyUser.DoesNotExist:
+            return Response({'error': 'User Does not Exist'})
+         if my_user in user_to_follow.followers.all():
+            user_to_follow.followers.remove(my_user)
+            return Response({'now_following': False})
+         else:
+            user_to_follow.followers.add(my_user)
+            return Response({'now_following': True})
+    except: 
+        return Response({'error': 'error following user'})
