@@ -31,7 +31,7 @@ class MyUserProfileSerializer(serializers.ModelSerializer):
     def get_following_count(self, obj):
         return obj.following.count()
 class PostSerializer(serializers.ModelSerializer):
-    user = serializers.SerializerMethodField()
+    username = serializers.SerializerMethodField()
     like_count = serializers.SerializerMethodField()
     formatted_date = serializers.SerializerMethodField()
     class Meta:
